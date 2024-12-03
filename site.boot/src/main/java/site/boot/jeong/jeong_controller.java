@@ -1,10 +1,10 @@
-package site.boot;
+package site.boot.jeong;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class main_controller {
+public class jeong_controller {
 
 	
 }
