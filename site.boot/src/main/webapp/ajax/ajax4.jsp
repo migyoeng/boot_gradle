@@ -7,7 +7,6 @@
 <title>Javascript - AJAX(POST + FormData)</title>
 </head>
 <body>
-
 <input type="checkbox" id="all" onchange="all_select(this.checked)">전체 선택<br>
 <input type="checkbox" name="pd" value="pd1" class="pd" onchange="one_select()">상품 1<br>
 <input type="checkbox" name="pd" value="pd2" class="pd" onchange="one_select()">상품 2<br>
@@ -72,9 +71,10 @@
 			}
 		}
 		ajax_data.open("POST", "./ajax4.do", true);
+		
+		//setRequestHeader : 어떤 방식으로 전송할 것인지 (content-type, application/json 또는 multipart/form-data)
 		//ajax_data.setRequestHeader("content-type", "multipart/form-data");
-		//application/x-www-form-urlencoded
-		ajax_data.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+		ajax_data.setRequestHeader("basket", "data");
 		ajax_data.send(formdata);
 	}
 

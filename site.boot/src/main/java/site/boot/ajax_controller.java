@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -17,14 +19,20 @@ public class ajax_controller {
 	PrintWriter pw = null;
 
 	
-	//JS - AJAX(POST) - Front FormData 전송 (동일 key 값 전송 시 ------WebKitFormBoundary 형태 구조)
+	//(동일 key 값 전송 시 ------WebKitFormBoundary 형태 구조)
+	//JS - AJAX(POST) - Front FormData 전송
 	@PostMapping("/ajax/ajax4.do")
-	public String ajax4(@RequestBody String product, HttpServletResponse res) throws Exception {
+	@ResponseBody
+	public String ajax4(@RequestParam("product") String product, @RequestHeader("Basket") String names, HttpServletResponse res) throws Exception {
 		this.pw = res.getWriter();
 		try {
-			System.out.println(product);
-			this.pw.print("ok");
-			
+			if(!names.equals("data")) {
+				this.pw.print("error");
+			}
+			else {
+				System.out.println(product);
+				this.pw.print("ok");
+			}
 		} catch (Exception e) {
 			this.pw.print("error");
 		} finally {
