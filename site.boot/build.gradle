@@ -42,7 +42,7 @@ dependencies {
 
 	//jsp, jstl
 	implementation group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api', version: '3.0.2'
-	implementation group: 'org.glassfish.web', name: 'javax.servlet.jsp.jstl'
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
 	//HttpServlet.request, response
 	compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 	//Dashboard에서 JSP, JSTL, ThymeLeaf 사용
