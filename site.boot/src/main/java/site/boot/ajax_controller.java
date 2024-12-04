@@ -2,8 +2,10 @@ package site.boot;
 
 import java.io.PrintWriter;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,109 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ajax_controller {
 	
 	PrintWriter pw = null;
+	
+	
+	
+	//JQ - AJAX(POST) - Front-end FormData 전송
+	@PostMapping("/ajax/ajax8.do")//value = "name값명", defaultValue="기본값", required=false(값을 하나도 넘기지 않은 경우에도 400 에러를 막는다)
+	public String ajax8(@RequestParam(value="fdata", defaultValue = "", required = false) String fdata, HttpServletResponse res) throws Exception {
+		try {
+			this.pw = res.getWriter();
+			if(fdata.equals("")) {
+				this.pw.print("error");
+			}
+			else {
+				String[] redata = fdata.split(",");
+				System.out.println(redata[0]);
+				this.pw.print("ok");
+			}
+		} catch (Exception e) {
+			this.pw.print("error");
+		} finally {
+			this.pw.close();
+		}
+		return null;
+	}
+	
+	//JQ - AJAX(POST) - Front-end 배열로 전송
+	@CrossOrigin(origins="*", allowedHeaders = "*")	//CORS 해제
+	@PostMapping("/ajax/ajax7.do")
+	public String ajax7(@RequestBody String all_data , HttpServletResponse res) throws Exception {
+		
+		try {
+			this.pw = res.getWriter();
+			
+			JSONObject jo = new JSONObject(all_data);
+				System.out.println(jo.get("fdata"));
+				JSONArray ja = (JSONArray)jo.get("fdata");	//[] 배열 체크
+				if(ja.length() == 0) {
+					this.pw.print("error");
+				}
+				else {
+					System.out.println(ja.get(0));
+					this.pw.print("ok");
+				}
+				//System.out.println(ja.get(0));
+			
+			this.pw.print("ok");
+			
+		} catch (Exception e) {
+			this.pw.print("error");
+		} finally {
+			this.pw.close();
+		}
+		return null;
+	}
+	
+	//JQ - AJAX(GET + JSON.stringify) - Front-end 배열로 전송
+	//POST 방식에만 @RequestBody 사용 - GET 방식엔 @RequestBody 를 사용하지 않는다
+	@GetMapping("/ajax/ajax6.do")
+	public String ajax6(HttpServletResponse res, @RequestParam("no") String no) {
+		try {
+			this.pw = res.getWriter();
+			JSONArray ja = new JSONArray(no);
+			int ea = ja.length();
+			if(ea == 0) {
+				this.pw.print("error");
+			}
+			else {
+				int w = 0;
+				do {
+					System.out.println(ja.get(w));
+					w++;
+				}while(w < ea);
+				this.pw.print("ok");
+			}
+		} catch (Exception e) {
+			this.pw.print("error");
+		} finally {
+			this.pw.close();
+		}
+		return null;
+	}
+	
+	//JQ - AJAX(GET) - Front-end name 값으로 전송
+	@GetMapping("/ajax/ajax5.do")
+	public String ajax5(HttpServletResponse res, @RequestParam("no")String no) throws Exception {
+		System.out.println(no);
+		String fdata[] = no.split(",");
+		try {
+			this.pw = res.getWriter();
+			int w = 0;
+			while(w < fdata.length) {
+				System.out.println(fdata[w]);
+				w++;
+			}
+			//Database 활용
+			this.pw.print("ok");
+		} catch (Exception e) {
+			this.pw.print("error");
+		} finally {
+			this.pw.close();
+		}
+		
+		return null;
+	}
 
 	
 	//(동일 key 값 전송 시 ------WebKitFormBoundary 형태 구조)

@@ -1,0 +1,86 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Jquery - AJAX(POST) + FormData</title>
+<script src="./jquery.js"></script>
+</head>
+<body>
+
+	<input type="checkbox" id="all">전체 선택<br>
+	<input type="checkbox" class="n" value="notice1">게시물1<br>
+	<input type="checkbox" class="n" value="notice2">게시물2<br>
+	<input type="checkbox" class="n" value="notice3">게시물3<br>
+	<button type="button" id="btn">전송</button>
+	
+</body>
+
+<script>
+//jquery는 name 속성을 검토하지 못한다
+//class와 id 만 불러올 수 있다
+//jquery에서는 onclick()을 사용하지 않는다
+$(function(){
+	//attr(Attribute)
+	//prop(Properties) : 지정한 태그의 해당 속성을 지정하여 값을 변경, 삭제, 삽입, 읽기를 할 수 있는 함수
+	//attr 보다 prop가 더 빠른 속도를 가진다
+	$("#all").change(function(){
+		//= var ck = $("#all").checked;
+		var $ck = this.checked;
+		var $ea = $(".n").length;
+		var $w = 0;
+		do{
+			$(".n").eq($w).prop("checked", $ck)	//eq() : jquery 배열 인덱스
+			$w++;
+		}while($w < $ea);
+	});
+	
+	var $count = 0;	//체크된 체크박스 수를 반영하는 변수
+	$(".n").change(function(){
+		var $idx = $(".n").index(this);	//node 번호 확인하여 체크하는 상황
+		console.log($idx);
+	});
+	
+	//전송 버튼 클릭 시 AJAX
+	$("#btn").click(function(){
+		
+		var $formdata = new FormData();
+		
+		var $ea = $(".n").length;
+		var $w = 0;
+		var $arrno = 0;	//순차적 배열 추가를 적용하기 위한 변수 값
+		do{
+			if($(".n").eq($w).is(":checked") == true){
+				$formdata.append("fdata", $(".n").eq($w).val());	//fdata : form 태그의 name 값
+			}
+			$w++;
+		}while($w < $ea);
+		
+		//console.log($formdata.getAll("fdata"));
+		
+		$.ajax({
+			url : "./ajax8.do",
+			cache : false,
+			type : "POST",
+			dataType : "HTML",
+			contentType : false,	//파싱되는 상황을 방지
+			processData : false,	//String 으로 변환하여 전송
+			data : $formdata,		//value 값이 한글이어도 깨지지 않고 잘 전송되는 것을 확인할 수 있다
+			async : true,
+			success : function($data){
+				console.log($data);
+			},
+			error : function(){
+				console.log("API 서버에 접근이 되지 않습니다.");
+			}
+			
+		});
+		
+		
+	});
+	
+});
+
+</script>
+</html>
