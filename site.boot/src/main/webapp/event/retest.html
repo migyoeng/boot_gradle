@@ -1,0 +1,84 @@
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>구우주 재시험</title>
+<link rel="stylesheet" href="./retest.css">
+</head>
+<body>
+<form>
+<div class="outline">
+    <div class="title"><font class="font1">EVENT 참여</font></div>
+        <table class="inline" cellspacing="0" cellpadding="0" >
+                <tr>
+            <td class="menu"><font class="font2">쿠폰번호</font></td>
+            <td class="else"><input type="text" name="COUPON_NO" class="input1" maxlength="10"><font class="font3"> ※쿠폰번호 10자리 입력</font></td>
+        </tr>
+        <tr>
+            <td class="menu"><font class="font2">고객명</font></td>
+            <td class="else"><input type="text" name="MNAME" class="input1"></td>
+        </tr>
+         <tr>
+            <td class="menu"><font class="font2">회원인증 휴대폰</font></td>
+            <td class="else">
+            <select name="TEL_CORP" class="input1">
+            <option value="">통신사 선택</option>
+            <option value="SKT">SKT</option>
+            <option value="KT">KT</option>
+            <option value="LGT">LGT</option>
+            <option value="알뜰폰">알뜰폰</option>
+            </select>
+            <input type="text" name="TEL_NO" class="input1">
+            
+            <font class="font3"> "-"포함하지 않고 숫자만 입력하시면 됩니다.</font></td>
+        </tr>
+        <tr>
+            <td class="menu"><font class="font2">고객 이메일</font></td>
+            <td class="else"><input type="text" name="MEMAIL" class="input3"></td>
+        </tr>
+        <tr>
+            <td class="menu"><font class="font2">주소</font></td>
+            <td class="else">
+            <input type="text" class="input2" name="ADD_POST">
+            <font class="font5">도로명 주소</font>
+            <input type="text" class="input4" name="ADD_LOAD"></td>
+        </tr>
+        <tr>
+            <td class="menu"><font class="font2">상세주소</font></td>
+            <td class="else"><input type="text" class="input3" name="ADD_ADDRESS"></td>           
+        </tr>
+        <tr>
+            <td class="menu"><font class="font2">SMS 수신여부</font></td>
+            <td class="else">
+                <input type="radio" class="radio" name="SMS" value="Y" checked><font class="font4">Y</font>
+                <input type="radio" class="radio" name="SMS" value="N"><font class="font4">N</font>
+            </td>
+        </tr>
+        <tr>
+            <td class="menu1"><font class="font2">EMAIL 수신여부</font></td>
+            <td>
+                <input type="radio" class="radio" name="EMAIL" value="Y" checked><font class="font4">Y</font>
+                <input type="radio" class="radio" name="EMAIL" value="N"><font class="font4">N</font>
+            </td>
+        </tr>
+        </table>
+        <span class="nospan"></span>
+        <div class="btndiv">
+            <input type="button" value="회원가입" class="btn2" onclick="event_join()">
+            <input type="button" value="가입취소" class="btn3">
+        </div>
+</div>
+</form>
+
+</body>
+
+<script>
+	function event_join(){
+		frm.method="post";
+		frm.action="./eventok.do";
+		frm.submit();
+	}
+	
+</script>
+
+
+</html>
