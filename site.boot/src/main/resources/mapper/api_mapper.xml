@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.boot.api.api_mapper">
+
+	<select id="api_alldata" resultType="site.boot.api.api_DTO">
+		SELECT * FROM EVENT ORDER BY EIDX DESC
+	</select>
+	
+	<update id="api_update" parameterType="site.boot.api.api_DTO">
+		UPDATE EVENT SET MEMAIL = #{MEMAIL} WHERE EIDX = #{EIDX}
+	</update>
+
+</mapper>
