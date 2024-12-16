@@ -57,6 +57,7 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
 	
 	//fileupload
+	//cdn server
 	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
 	implementation group: 'commons-net', name: 'commons-net', version: '3.11.1'
 	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
