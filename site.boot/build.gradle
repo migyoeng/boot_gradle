@@ -29,6 +29,10 @@ repositories {
 //각종 라이브러리가 해당
 dependencies {
 
+	//QR
+	implementation 'com.google.zxing:core:3.5.3'
+	implementation 'com.google.zxing:javase:3.5.3'
+
 	//web socket
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	
