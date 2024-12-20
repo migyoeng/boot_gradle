@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인</title>
+<link th:replace="~{sample.html :: login_style}">
+
+<style th:replace = "~{/sample.html :: styles}"></style>
+</head>
+<body>
+	<div th:replace = "~{/sample.html :: top}"></div>
+	
+	<!-- 로그인 -->
+	<form onsubmit="return loginck()" id="frm" method="post" action="./loginok.do" th:insert="~{sample.html :: login}">
+	
+	</form>
+	<!-- 로그인 끝 -->
+	
+	<div th:replace = "~{/sample.html :: footer}"></div>
+</body>
+
+<script>
+	function loginck(){
+		if(frm.mid.value == ""){
+			alert("아이디를 입력해주세요");
+			return false;
+		}
+		else if(frm.mpass.value == ""){
+			alert("패스워드를 입력해주세요");
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+</script>
+</html>

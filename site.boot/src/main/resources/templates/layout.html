@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf 메인화면</title>
+<!-- fragment를 이용하여 가상의 이름으로 영역처리를 담당하는 thymeleaf의 속성 -->
+<style th:fragment="styles">
+body{
+margin: 0;
+padding: 0;
+}
+.top{
+   width:100%;
+   height: 50px;
+   background: green;
+   color:white;
+   }
+.top > span{
+   display: block;
+   width: 120px;
+   height: 50px;
+   text-align: center;
+   float: left;
+   line-height: 50px;
+
+}
+.main1{
+   background-color: skyblue;
+   height: 300px; 
+}
+.main2{
+   background-color: pink;
+   height: 300px;
+}
+.copy{
+   background-color: gray;
+   height: 100px;
+   color: white;
+
+}
+
+</style>
+</head>
+<!--  MD 추천 상품 -->
+<body>
+	<header class="top" th:fragment="top">
+	<span>회사소개</span>
+	<span>상품소개</span>
+	<span>공지사항</span>
+	</header>
+
+	<section class="main1">
+	<ul th:each="pd : ${mdlist}">    <!-- each : foreach와 동일함 -->
+	<li th:text="${pd.key}"></li>    <!-- Controller에서의 key 값 -->
+	<li th:text="${pd.value}"></li>   <!-- Controller에서의 value 값 -->
+	</ul>
+	</section>
+
+	<!--  공지사항 출력 파트입니다 -->
+	<section class="main2">
+	<div th:each="notice:${board}">[[${notice}]]</div> <!-- th:text를 태그 밖에 출력하는 공식 (대괄호 두번!) -->
+	</section>
+
+	<footer class="copy" th:fragment="footer(copyright)">
+	<span th:text="${copyright}"></span>
+	</footer>
+
+</body>
+</html>

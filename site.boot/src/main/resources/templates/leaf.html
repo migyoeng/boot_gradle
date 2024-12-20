@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thymeleaf 기본 문법 사용</title>
+</head>
+<body>
+<!-- 
+	th:with = JSTL의 set 태그와 동일하게 마크업 태그 기준으로 with에 대한 가상의 변수로 값을 출력하는 형태
+ -->
+	<div th:with="data1='홍길동', data2='강감찬'">
+		<ul>
+			<li>[[${data1}]]</li>
+			<li>[[${data2}]]</li>
+		</ul>
+	</div>
+	
+<!-- 
+	Thymeleaf # = JSTL의 fn
+	sequence : 일련번호 (시작값, 종료값)
+	numbers : 숫자를 의미하는 자료형
+ -->
+	<span th:with="startno=1, endno=10">
+		<ul th:each = "n : ${#numbers.sequence(startno, endno)}">
+			<li>[[${n}]]</li>
+		</ul>
+	</span>
+	<!-- if, unless(not) -->
+	<div th:with="pay='vbank'">
+		<div th:if="${pay == 'card'}">신용카드</div>
+		<div th:if="${pay == 'vbank'}">가상계좌</div>
+		<div th:unless="${pay == 'card'}">계좌이체</div>
+	</div>
+	
+<!-- JAVA 라이브러리 -->
+<!-- T : Type을 설정할 경우 사용(java 라이브러리 클래스를 호출
+ -->
+	<em th:with="maxno=${T(java.lang.Math).min(5,9)}">
+		<span th:text="${maxno}"></span>
+	</em>
+	
+	<cite th:with="email=${T(site.boot.thymeleaf.abc).result()}">
+		<label th:text="${email}"></label>
+	</cite>
+	
+	<br><br><br>
+	
+<!-- 
+	formatInteger(표시하는 값, 최소 정수 자릿수, 최소 소수 자릿수, '구분자')
+ -->
+	<!-- formatInteger : 반올림 형태로 결과값을 출력 -->
+	<span th:text="${#numbers.formatInteger(2.6, 0)}"></span>
+	<!-- formatInteger : 콤마(금액의 단위별 콤마) -->
+	<span th:text="${#numbers.formatInteger(1800000, 0, 'COMMA')}"></span>
+	
+</body>
+</html>
